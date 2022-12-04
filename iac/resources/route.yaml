@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  labels:
+    app: opa
+  name: opa
+spec:
+  selector:
+    matchLabels:
+      app: opa
+  to:
+    kind: Service
+    name: opa
+  tls: null
+  port:
+    targetPort: http
