@@ -1,0 +1,5 @@
+replicaCount: 2
+
+image:
+  repository: openpolicyagent/opa
+  tag: "0.46.1-rootless"
