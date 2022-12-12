@@ -75,5 +75,5 @@ This is the minimum viable configuration. Recommended only for POC purposes.
 1. Install `gitops-app-project` chart:
 
     ```bash
-    helm upgrade -i opa-gitops gitops-app-project -f ../helm/values/dev/values.yaml --set "app.NAMESPACE=$NAMESPACE"
+    helm upgrade -i opa-gitops gitops-app-project -f ../helm/values/dev/values.yaml --set "app.namespace=$NAMESPACE"
     ```
