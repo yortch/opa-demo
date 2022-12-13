@@ -72,6 +72,12 @@ This is the minimum viable configuration. Recommended only for POC purposes.
     cd iac/gitops
     ```
 
+1. Install ArgoCD instance (prerequisite):
+
+    ```bash
+    oc apply -f prereqs/argocd.yaml
+    ```
+
 1. Install `gitops-app-project` chart:
 
     ```bash

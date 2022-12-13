@@ -6,3 +6,12 @@ spec:
   server:
     route:
       enabled: true
+  sso:
+    dex:
+      openShiftOAuth: true
+    provider: dex      
+  rbac:
+    policy: |
+      g, system:cluster-admins, role:admin
+      g, cluster-admins, role:admin
+    scopes: '[groups]'      
