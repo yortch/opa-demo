@@ -1,0 +1,46 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deploy-config-policy
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: build-tool
+spec:
+  workspaces:
+  - name: source
+    description: "The workspace containing source code"
+  steps:
+    - workingDir: "/workspace/source"
+      name: retrieve-api-ids
+      image: {{ tpl .Values.awsImage . | quote }}
+      script: |
+        #!/usr/bin/env bash
+        echo "================="
+        echo "Get JWT Secret" 
+        echo "================="
+
+	# AWS CLI Command would go here
+        jwt_secret=$(echo "dummyvalue")
+        echo "export jwt_secret=${jwt_secret}" >> variables.export
+
+    - script: |
+        #!/usr/bin/env bash
+        echo "==============================================="
+        echo "Deploy chart with default policy for OPA Agent" 
+        echo "==============================================="
+                
+        # source file with environment variables
+        source variables.export
+
+        [ -n "$jwt_secret" ] || { echo "jwt_secret was not found"; exit 1; }
+       
+        helmParameters="--set jwtSecret='${jwt_secret}'"
+
+        echo "Deploying helm release: policy-chart with arguments: ${helmFile} ${helmParameters}"
+        # Run Helm Command
+        helm upgrade -i policy-chart app/iac/tekton/policy-chart ${helmFile} ${helmParameters}
+
+      image: {{ tpl .Values.openshiftToolsImage . }}
+      name: install-helm-chart
+      resources: {}
+      workingDir: "/workspace/source"
