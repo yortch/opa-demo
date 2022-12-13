@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.app.namespace }}
+spec:
+  destination:
+    namespace: {{ .Values.app.namespace }}
+    server: 'https://kubernetes.default.svc'
+  project: {{ .Values.app.namespace }}
+  source:
+    path: iac/helm/opa-chart
+    repoURL: {{ .Values.app.gitUrl }}
+    targetRevision: {{ .Values.app.gitRef }}
+    helm:
+      parameters:
+      - name: appname
+        value: {{ .Release.Name }}
+        forceString: true
+      - name: app.gitUrl
+        value: {{ .Values.app.gitUrl }}
+      - name: app.gitRef
+        value: {{ .Values.app.gitRef }}
+      values: |
+{{ toYaml .Values | indent 8 }}
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
