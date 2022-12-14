@@ -16,7 +16,7 @@ spec:
         echo "Get JWT Secret" 
         echo "================="
 
-	      # AWS CLI Command to retrieve secret would go here
+        # AWS CLI Command to retrieve secret would go here
         jwt_secret=$(echo "dummyvalue")
         echo "export jwt_secret=${jwt_secret}" >> variables.export
 

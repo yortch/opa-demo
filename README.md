@@ -83,3 +83,39 @@ This is the minimum viable configuration. Recommended only for POC purposes.
     ```bash
     helm upgrade -i opa-gitops gitops-app-project -f ../helm/values/dev/values.yaml --set "app.namespace=$NAMESPACE"
     ```
+
+## Phase 3: Deploy using GitOps (ArgoCD) and Tekton pipeline
+
+1. Login to OpenShift console via CLI using `oc login`
+1. Export project name to use:
+
+    ```bash
+    NAMESPACE=opa-tekton
+    ```
+
+1. Create project
+
+    ```bash
+    oc new-project $NAMESPACE
+    ```
+
+1. Change to `iac/gitops` directory:
+
+    ```bash
+    cd iac/gitops
+    ```
+
+1. Install ArgoCD instance (prerequisite):
+
+    ```bash
+    oc apply -f prereqs/argocd.yaml
+    ```
+
+1. Install `gitops-app-project` chart:
+
+    ```bash
+    helm upgrade -i opa-tekton gitops-app-project -f ../helm/values/dev/values.yaml --set "app.namespace=$NAMESPACE"
+    ```
+
+1. This will install OPA Agent but pods will fail to start because of missing configmap.
+   Next run pipeline from OpenShift console.
