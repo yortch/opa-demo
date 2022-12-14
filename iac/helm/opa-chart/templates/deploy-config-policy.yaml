@@ -37,6 +37,6 @@ spec:
         # Run Helm Command
         helm upgrade -i policy-chart ./iac/tekton/policy-chart ${helmFile} ${helmParameters}
 
-      image: rhel8/support-tools
+      image: registry.redhat.io/rhel8/support-tools:8.7
       name: install-helm-chart
       workingDir: "/workspace/source"
