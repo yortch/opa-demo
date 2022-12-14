@@ -56,9 +56,9 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-15      - name: policies
-16        configMap:
-17          name: rego-policies      
+        - name: policies
+          configMap:
+            name: rego-policies      
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
