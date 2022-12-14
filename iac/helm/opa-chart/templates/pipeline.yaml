@@ -40,12 +40,36 @@ spec:
       workspaces:
         - name: output
           workspace: source
-    - name: deploy-config-policy
+    - name: get-jwt-secret
       runAfter:
         - git-clone
       taskRef:
         kind: Task
-        name: deploy-config-policy
+        name: get-aws-secret
+      workspaces:
+        - name: source
+          workspace: source
+      results:
+        - name: secret_value
+          description: The secret value retrieved from AWS   
+    - name: install-policy-chart
+      runAfter:
+        - get-jwt-secret
+      taskRef:
+        kind: ClusterTask
+        name: helm-upgrade-from-source
+      params:
+        - name: charts_dir
+          value: iac/tekton/policy-chart
+        - name: release_version
+          value: v1.0.0
+        - name: release_name
+          value: policy-chart
+        - name: overwrite_values
+          value: jwtSecret=$(tasks.get-secret.results.secret_value),appname={{ .Release.Name }},clientId={{ .Values.clientId }}
+        - name: helm_image
+          value: >-
+            docker.io/lachlanevenson/k8s-helm@sha256:5c792f29950b388de24e7448d378881f68b3df73a7b30769a6aa861061fd08ae
       workspaces:
         - name: source
           workspace: source
