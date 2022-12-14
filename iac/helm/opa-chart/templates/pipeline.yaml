@@ -40,7 +40,7 @@ spec:
       workspaces:
         - name: output
           workspace: source
-    - name: get-jwt-secret
+    - name: get-aws-secret
       runAfter:
         - git-clone
       taskRef:
@@ -51,7 +51,7 @@ spec:
           workspace: source 
     - name: install-policy-chart
       runAfter:
-        - get-jwt-secret
+        - get-aws-secret
       taskRef:
         kind: ClusterTask
         name: helm-upgrade-from-source
