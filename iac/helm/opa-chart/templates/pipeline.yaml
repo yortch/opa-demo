@@ -48,10 +48,7 @@ spec:
         name: get-aws-secret
       workspaces:
         - name: source
-          workspace: source
-      results:
-        - name: secret_value
-          description: The secret value retrieved from AWS   
+          workspace: source 
     - name: install-policy-chart
       runAfter:
         - get-jwt-secret
