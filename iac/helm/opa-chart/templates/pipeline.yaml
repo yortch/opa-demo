@@ -49,7 +49,5 @@ spec:
       workspaces:
         - name: source
           workspace: source
-        - name: secrets
-          workspace: source
   workspaces:
     - name: source
