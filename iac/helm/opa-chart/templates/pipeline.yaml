@@ -40,7 +40,7 @@ spec:
       workspaces:
         - name: output
           workspace: source
-    - name: get-aws-secret
+    - name: get-jwt-secret
       runAfter:
         - git-clone
       taskRef:
@@ -51,7 +51,7 @@ spec:
           workspace: source 
     - name: install-policy-chart
       runAfter:
-        - get-aws-secret
+        - get-jwt-secret
       taskRef:
         kind: ClusterTask
         name: helm-upgrade-from-source
@@ -63,7 +63,7 @@ spec:
         - name: release_name
           value: policy-chart
         - name: overwrite_values
-          value: jwtSecret=$(tasks.get-secret.results.secret_value),appname={{ .Release.Name }},clientId={{ .Values.clientId }}
+          value: jwtSecret=$(tasks.get-jwt-secret.results.secret_value),appname={{ .Release.Name }},clientId={{ .Values.clientId }}
         - name: helm_image
           value: >-
             docker.io/lachlanevenson/k8s-helm@sha256:5c792f29950b388de24e7448d378881f68b3df73a7b30769a6aa861061fd08ae
