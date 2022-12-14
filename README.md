@@ -118,4 +118,4 @@ This is the minimum viable configuration. Recommended only for POC purposes.
     ```
 
 1. This will install OPA Agent but pods will fail to start because of missing configmap.
-   Next run pipeline from OpenShift console.
+   Next run the `configure-opa` pipeline from OpenShift console.
