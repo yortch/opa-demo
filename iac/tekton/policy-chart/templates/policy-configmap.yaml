@@ -17,7 +17,7 @@ data:
         valid := io.jwt.verify_hs256(jwt, {{ $.Values.jwtSecret | quote }})
 
         token := {"valid": valid,
-                  "name": payload.client}
+                  "client": payload.client}
     }
 
   system.authz.rego: | 
