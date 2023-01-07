@@ -80,6 +80,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-opa:
-  clientId: test-client
