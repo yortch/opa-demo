@@ -1,5 +1,12 @@
 # opa-demo
-Demo to deploy using OPA agent into Openshift using helm, argoCD, tekton
+Demo to deploy using OPA agent into Openshift using helm, argoCD, tekton.
+This demo uses OpenShift 4.9 running on AWS (ROSA).
+
+## Pre-requisites
+Install the following operators via OperatorHub in OpenShift Console using latest version available
+and using default settings:
+1. `Red Hat OpenShift GitOps` (version 1.7.0)
+1. `Red Hat OpenShift Pipelines` (version 1.7.3)
 
 ## Phase 0: Deploy Kubernetes Resources (POC)
 
@@ -81,7 +88,8 @@ This is the minimum viable configuration. Recommended only for POC purposes.
 1. Install `gitops-app-project` chart:
 
     ```bash
-    helm upgrade -i opa-gitops gitops-app-project -f ../helm/values/dev/values.yaml --set "app.namespace=$NAMESPACE"
+    helm upgrade -i opa-gitops gitops-app-project -f ../helm/values/dev/values.yaml \
+    --set "app.namespace=$NAMESPACE"
     ```
 
 ## Phase 3: Deploy using GitOps (ArgoCD) and Tekton pipeline
@@ -114,7 +122,8 @@ This is the minimum viable configuration. Recommended only for POC purposes.
 1. Install `gitops-app-project` chart:
 
     ```bash
-    helm upgrade -i opa-tekton gitops-app-project -f ../helm/values/dev/values.yaml --set "app.namespace=$NAMESPACE"
+    helm upgrade -i opa-tekton gitops-app-project -f ../helm/values/dev/values.yaml \
+    --set "app.namespace=$NAMESPACE"
     ```
 
 1. This will install OPA Agent but pods will fail to start because of missing configmap.
