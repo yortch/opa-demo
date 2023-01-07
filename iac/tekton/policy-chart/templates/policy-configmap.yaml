@@ -24,18 +24,21 @@ data:
     package system.authz    
     import data.com.demo.common.jwt.valid_token
 
-    default allow = false
-
-    allow { #allow all GET requests
+    default allow := {
+      "allowed": false,
+      "reason": "unauthorized resource access"
+    }
+    
+    allow := { "allowed": true } { #allow all GET requests
         input.method == "GET"
     }
 
-    allow { #allow evaluation of policies POST /v1/data
+    allow := { "allowed": true } { #allow evaluation of policies POST /v1/data
         input.method == "POST"
         input.path[1] == "data"
     }
 
-    allow { #allow creation of policies only to specific user  
+    allow := { "allowed": true } { #allow creation of policies only to specific user  
         input.method == "PUT"
         input.path[1] == "policies"
         token := valid_token(input.identity)
