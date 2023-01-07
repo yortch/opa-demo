@@ -63,7 +63,7 @@ spec:
         - name: values_file
           value: values.yaml  
         - name: overwrite_values
-          value: jwtSecret=$(tasks.get-jwt-secret.results.secret_value),appname={{ .Release.Name }},clientId={{ .Values.clientId }}
+          value: jwtSecret=$(tasks.get-jwt-secret.results.secret_value),appname={{ .Release.Name }},clientId={{ .Values.opa.clientId }}
         - name: helm_image
           value: >-
             docker.io/lachlanevenson/k8s-helm@sha256:5c792f29950b388de24e7448d378881f68b3df73a7b30769a6aa861061fd08ae
