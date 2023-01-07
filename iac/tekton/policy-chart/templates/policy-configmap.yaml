@@ -42,6 +42,6 @@ data:
         input.method == "PUT"
         input.path[1] == "policies"
         token := valid_token(input.identity)
-        token.client == {{ $.Values.opa.clientId | quote }}
+        token.client == {{ $.Values.clientId | quote }}
         token.valid
     }
