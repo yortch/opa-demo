@@ -39,9 +39,15 @@ spec:
               protocol: TCP
           args:
             - "run"
+            - "--watch"
+            - "--ignore=.*"
             - "--server"
+            - "--skip-version-check"
+            - "--log-level"
+            - "debug"
             - "--set=status.console=true"
-            - "--set=decision_logs.console=true"              
+            - "--set=decision_logs.console=true"
+            - "/policies"                       
           livenessProbe:
             httpGet:
               path: /

@@ -20,7 +20,7 @@ spec:
           image: {{ .Values.opa.image.repository }}:{{ .Values.opa.image.tag }}
           args:
             - "run"
-            - "watch"
+            - "--watch"
             - "--ignore=.*"
             - "--server"
             - "--skip-version-check"
@@ -28,4 +28,3 @@ spec:
             - "debug"
             - "--set=status.console=true"
             - "--set=decision_logs.console=true"
-            - "/policies"
