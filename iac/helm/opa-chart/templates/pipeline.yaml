@@ -61,7 +61,7 @@ spec:
         - name: release_name
           value: policy-chart
         - name: values_file
-          value: ""  
+          value: values.yaml  
         - name: overwrite_values
           value: jwtSecret=$(tasks.get-jwt-secret.results.secret_value),appname={{ .Release.Name }},clientId={{ .Values.clientId }}
         - name: helm_image
