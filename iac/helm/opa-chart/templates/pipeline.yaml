@@ -10,7 +10,7 @@ spec:
     - default: tekton
       name: git-ref
       type: string
-    - default: {{ .Values.appname }}-{{ .Release.Name }}
+    - default: {{ include "opa-chart.fullname" . }}
       name: deployment-name
       type: string      
   tasks:
