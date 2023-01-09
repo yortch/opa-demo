@@ -17,9 +17,18 @@ spec:
     spec:
       containers:
         - name: opa
-          image: openpolicyagent/opa:0.46.1-rootless
+          image: {{ .Values.opa.image.repository }}:{{ .Values.opa.image.tag }}
           args:
             - "run"
+            - "--watch"
+            - "--ignore=.*"
             - "--server"
+            - "--skip-version-check"
+            - '--authorization'
+            - basic
+            - '--authentication'
+            - token
+            - "--log-level"
+            - "debug"
             - "--set=status.console=true"
             - "--set=decision_logs.console=true"

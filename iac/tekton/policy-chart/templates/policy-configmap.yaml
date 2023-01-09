@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rego-policies
+  labels:
+    appname: {{ .Values.appname }}
+data:
+  jwt.rego: |
+    package com.demo.common.jwt
+    
+    import input
+    import future.keywords.in
+    
+    valid_token(jwt) = token {
+        [header, payload, sig]:= io.jwt.decode(jwt)
+    
+        valid := io.jwt.verify_hs256(jwt, {{ $.Values.jwtSecret | quote }})
+
+        token := {"valid": valid,
+                  "client": payload.client}
+    }
+
+  system.authz.rego: | 
+    package system.authz    
+    import data.com.demo.common.jwt.valid_token
+
+    default allow := {
+      "allowed": false,
+      "reason": "unauthorized resource access"
+    }
+    
+    allow := { "allowed": true } { #allow all GET requests
+        input.method == "GET"
+    }
+
+    allow := { "allowed": true } { #allow evaluation of policies POST /v1/data
+        input.method == "POST"
+        input.path[1] == "data"
+    }
+
+    allow := { "allowed": true } { #allow creation of policies only to specific user  
+        input.method == "PUT"
+        input.path[1] == "policies"
+        token := valid_token(input.identity)
+        token.client == {{ $.Values.clientId | quote }}
+        token.valid
+    }

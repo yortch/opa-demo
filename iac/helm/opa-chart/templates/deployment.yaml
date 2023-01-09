@@ -31,7 +31,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.opa.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -39,9 +39,19 @@ spec:
               protocol: TCP
           args:
             - "run"
+            - "--watch"
+            - "--ignore=.*"
             - "--server"
+            - "--skip-version-check"
+            - '--authorization'
+            - basic
+            - '--authentication'
+            - token            
+            - "--log-level"
+            - "debug"
             - "--set=status.console=true"
-            - "--set=decision_logs.console=true"              
+            - "--set=decision_logs.console=true"
+            - "/policies"                       
           livenessProbe:
             httpGet:
               path: /
@@ -50,8 +60,15 @@ spec:
             httpGet:
               path: /
               port: http
+          volumeMounts:
+            - mountPath: "/policies"
+              name: policies    
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: policies
+          configMap:
+            name: rego-policies      
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
