@@ -84,8 +84,5 @@ spec:
       taskRef:
         kind: ClusterTask
         name: openshift-client
-      workspaces:
-        - name: source
-          workspace: source
   workspaces:
     - name: source
