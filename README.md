@@ -128,3 +128,17 @@ This is the minimum viable configuration. Recommended only for POC purposes.
 
 1. This will install OPA Agent but pods will fail to start because of missing configmap.
    Next run the `configure-opa` pipeline from OpenShift console.
+
+1. Get route to service either from OpenShift Console or running this command:
+
+   ```bash
+   URL=http://$(oc get route $NAMESPACE-opa-chart -o jsonpath='{.spec.host}')
+   ```
+
+1. Next attempt to query policies without authentication (expect success `200`):
+
+  ```bash
+  curl --location -i $URL/v1/policies/
+  ```
+
+1. Next attempt to insert new policy without authentication (expect error `403`):

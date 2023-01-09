@@ -43,6 +43,10 @@ spec:
             - "--ignore=.*"
             - "--server"
             - "--skip-version-check"
+            - '--authorization'
+            - basic
+            - '--authentication'
+            - token            
             - "--log-level"
             - "debug"
             - "--set=status.console=true"

@@ -27,7 +27,7 @@ spec:
             - '--authorization'
             - basic
             - '--authentication'
-            - token            
+            - token
             - "--log-level"
             - "debug"
             - "--set=status.console=true"
