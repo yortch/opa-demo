@@ -73,6 +73,12 @@ This is the minimum viable configuration. Recommended only for POC purposes.
     oc new-project $NAMESPACE
     ```
 
+1. Checkout `gitops` branch
+
+    ```bash
+    git checkout gitops
+    ```
+
 1. Change to `iac/gitops` directory:
 
     ```bash
@@ -129,16 +135,35 @@ This is the minimum viable configuration. Recommended only for POC purposes.
 1. This will install OPA Agent but pods will fail to start because of missing configmap.
    Next run the `configure-opa` pipeline from OpenShift console.
 
+### Policy Validation
+
 1. Get route to service either from OpenShift Console or running this command:
 
-   ```bash
-   URL=http://$(oc get route $NAMESPACE-opa-chart -o jsonpath='{.spec.host}')
-   ```
+     ```bash
+     URL=http://$(oc get route $NAMESPACE-opa-chart -o jsonpath='{.spec.host}')
+     ```
 
 1. Next attempt to query policies without authentication (expect success `200`):
 
-  ```bash
-  curl --location -i $URL/v1/policies/
-  ```
+    ```bash
+    curl --location -i $URL/v1/policies/
+    ```
 
 1. Next attempt to insert new policy without authentication (expect error `403`):
+
+    ```bash
+    curl -i --location --request PUT $URL/v1/policies/example1 \
+    --data-raw 'package example1
+    default allow := false'
+    ```
+
+1. Next obtain a valid token, e.g. from http://jwt.io entering secret 
+   (in `Verify Signature`) section and specifying `"client": "test"` in 
+   payload and save it on an environment variable named `JWT` (expect success `200`)
+
+    ```bash
+    curl --location -i --request PUT $URL/v1/policies/example1 \
+    --header "Authorization: Bearer $JWT" \
+    --data-raw 'package example1
+    default allow := false'
+    ```
