@@ -35,6 +35,11 @@ This is the minimum viable configuration. Recommended only for POC purposes.
 ## Phase 1: Deploy using Helm
 
 1. Login to OpenShift console via CLI using `oc login`
+1. Checkout `helm` branch
+
+    ```bash
+    git checkout helm
+    ```
 1. Export project name to use:
 
     ```bash
