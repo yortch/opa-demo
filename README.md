@@ -2,7 +2,7 @@
 Demo to deploy using OPA agent into Openshift using helm, argoCD, tekton.
 This demo uses OpenShift 4.9 running on AWS (ROSA).
 
-## Pre-requisites (for Phases 1 and 2)
+## Pre-requisites (for Phases 2 and 3)
 Install the following operators via OperatorHub in OpenShift Console using latest version available
 and using default settings:
 1. `Red Hat OpenShift GitOps` (version 1.7.0)
@@ -35,17 +35,17 @@ This is the minimum viable configuration. Recommended only for POC purposes.
 ## Phase 1: Deploy using Helm
 
 1. Login to OpenShift console via CLI using `oc login`
-1. Checkout `helm` branch
 
-    ```bash
-    git checkout helm
-    ```
 1. Export project name to use:
 
     ```bash
     NAMESPACE=opa-helm
     ```
+1. Checkout `helm` branch
 
+    ```bash
+    git checkout helm
+    ```
 1. Create project
 
     ```bash
