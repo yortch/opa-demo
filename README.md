@@ -2,7 +2,7 @@
 Demo to deploy using OPA agent into Openshift using helm, argoCD, tekton.
 This demo uses OpenShift 4.9 running on AWS (ROSA).
 
-## Pre-requisites
+## Pre-requisites (for Phases 1 and 2)
 Install the following operators via OperatorHub in OpenShift Console using latest version available
 and using default settings:
 1. `Red Hat OpenShift GitOps` (version 1.7.0)

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: opa
-          image: {{ .Values.opa.image.repository }}:{{ .Values.opa.image.tag }}
+          image: openpolicyagent/opa:0.46.1-rootless
           args:
             - "run"
             - "--watch"
