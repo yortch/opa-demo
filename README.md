@@ -117,6 +117,11 @@ This is the minimum viable configuration. Recommended only for POC purposes.
     ```bash
     oc new-project $NAMESPACE
     ```
+1. Checkout `main` branch (if not already there)
+
+    ```bash
+    git checkout main
+    ```
 
 1. Change to `iac/gitops` directory:
 
