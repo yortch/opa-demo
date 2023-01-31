@@ -9,3 +9,4 @@ opa:
 app:
   gitUrl: https://github.com/yortch/opa-demo.git
   gitRef: main
+  gitPath: iac/helm/opa-chart
