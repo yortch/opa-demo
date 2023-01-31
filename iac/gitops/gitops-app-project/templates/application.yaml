@@ -8,7 +8,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: {{ .Values.app.namespace }}
   source:
-    path: iac/helm/opa-chart
+    path: {{ .Values.app.gitPath }}
     repoURL: {{ .Values.app.gitUrl }}
     targetRevision: {{ .Values.app.gitRef }}
     helm:
