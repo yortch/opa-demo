@@ -8,5 +8,5 @@ opa:
 
 app:
   gitUrl: https://github.com/yortch/opa-demo.git
-  gitRef: gitops
+  gitRef: tekton
   gitPath: iac/helm/opa-chart
