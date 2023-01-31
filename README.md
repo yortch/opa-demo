@@ -142,8 +142,9 @@ This is the minimum viable configuration. Recommended only for POC purposes.
     --set "app.namespace=$NAMESPACE"
     ```
 
-1. This will install OPA Agent but pods will fail to start because of missing configmap.
-   Next run the `configure-opa` pipeline from OpenShift console.
+1. This will install OPA Agent but pods will fail to start because of missing `configmap`.
+
+1. Next run the `configure-opa` pipeline from OpenShift console.
 
 ### Policy Validation
 
