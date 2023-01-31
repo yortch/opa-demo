@@ -6,5 +6,5 @@ image:
 
 app:
   gitUrl: https://github.com/yortch/opa-demo.git
-  gitRef: main
+  gitRef: gitops
   gitPath: iac/helm/opa-chart
