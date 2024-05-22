@@ -46,7 +46,7 @@ spec:
         - git-clone
       taskRef:
         kind: Task
-        name: get-aws-secret
+        name: get-secret
       workspaces:
         - name: source
           workspace: source 
