@@ -39,16 +39,17 @@ spec:
               protocol: TCP
           args:
             - "run"
+            - "--ignore=.*"    
             - "--server"
             - "--set=status.console=true"
             - "--set=decision_logs.console=true"              
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /health?bundle=true
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
