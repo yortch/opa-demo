@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: openpolicyagent/opa
-  tag: "0.46.1-rootless"
+  tag: "0.68.0"
 
 app:
   gitUrl: https://github.com/yortch/opa-demo.git
