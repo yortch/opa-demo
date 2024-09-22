@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: openpolicyagent/opa
-  tag: "0.68.0"
+  tag: "0.67.1"
 
 app:
   gitUrl: https://github.com/yortch/opa-demo.git
